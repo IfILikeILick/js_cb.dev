@@ -1,0 +1,151 @@
+
+<!DOCTYPE html><html><body>
+<h3>Last message was:</h3>
+<p id= "myPara">
+
+If you are reading this because you ignored the next warning, then your browser is either slow, fckd, or not running JavaScript today.
+
+Appearences to the contrary, this is a TXT file, not an HTML file.  If it is renamed to HTML and opened in a browser, the behaviour is undefined.
+
+</p>
+<h3>Message test:</h3>
+<p>Edit your message and press 'Enter' to update the result (above).</p>
+
+<input id="myMsgBox" value="(original message - this should have been overridden by JavaScript, but wasn't, apparently)">
+<button id="myMsgBut" onclick="document.getElementById('myPara').innerHTML = 'New message is: \42'+cuminFunc(myMsgBox.value)+'\42'">Send message</button>
+
+<script>
+
+const myMsgBox = document.getElementById("myMsgBox");
+const myPara = document.getElementById("myPara");
+
+// Execute a function when the user presses a key on the keyboard
+myMsgBox.addEventListener("keypress", function(event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("myMsgBut").click();
+  }
+});
+
+const cb= {
+  onMessage: undefined,
+  onTip: undefined,
+  onJudgementDay: undefined
+};
+
+const myMsgObj= {
+  c: "#666", // message color
+  m: "MESSAGE reads: \42CUMIN cummerbund; Cum Sancto Spiritu\42",
+  user: "USER", // username of message sender
+  f: "Verdana", // message font
+  in_fanclub: false, // is the user in the broadcasters fan club
+  has_tokens: true, // does the user have at least 1 token
+  is_mod: false, // is the user a moderator
+  tipped_recently: false, // is the user a "dark blue"?
+  tipped_alot_recently: false, // is the user a "purple"?
+  tipped_tons_recently: false, // is the user a "dark purple"?
+  gender: "m" // "m" (male), "f" (female), "s" (trans), or "c" (couple)
+};
+
+const myTipObj= {
+  amount: 1, // amount of tip
+  message: "I love you!", // message in tip
+  is_anon_tip: false, // is this tip sent anonymously
+  to_user: "juliet", // user who received tip
+  from_user: "romeo", // user who sent tip
+  from_user_in_fanclub: false, // is the user in the broadcasters fan club
+  from_user_has_tokens: true, // does the user have at least 1 token
+  from_user_is_mod: false, // is the user a moderator
+  from_user_tipped_recently: false, // is the user a "dark blue"?
+  from_user_tipped_alot_recently: false, // is the user a "purple"?
+  from_user_tipped_tons_recently: false, // is the user a "dark purple"?
+  from_user_gender: "m", // "m" (male), "f" (female), "s" (trans), or "c" (couple)
+};
+
+const cuminChar= function(s, x) {
+  return String.fromCharCode(s.charCodeAt(0)+x);
+};
+
+const cuminFunc= function(s) {
+  let q= "";
+
+  do { // TODO= (\b|\W)
+      const m= s.match(/\b(c)(u)(m)(m*)(\w*)/i);
+
+      if (m); else break;
+
+      const i= s.indexOf(m[0]),
+            j= i+(m[0].length);
+
+      const l= m[4].length?
+        " erbund ":
+        " ber bersome bersomely bersomeness brous brously "
+        + "brousness in quat shaw ulate ulated ulates ulating "
+        + "ulative ulatively uliform ulonimbus ulous ulus ";
+
+      let x= "";
+      if (l.indexOf(" " + m[5].toLowerCase() + " ")>=0); else {
+
+        const i= s.indexOf(m[0]),
+              k= m[5].toLowerCase()!=="ed"? 6: 20;
+              t= cuminChar(m[2], 0-k),
+              e= m[5].length!=0 && k!=20?
+                m[5]:
+                cuminChar(m[2], 0-16);
+        x= t + m[3] + e;
+      }
+      q= q + s.substr(0, i+m[x.length? 1: 0].length) + x;
+      s= s.substr(j);
+
+  } while (true);
+
+  return q+s;
+};
+
+/** cb.onMessage(function (msg) {
+
+      msg.m= cuminFunc(msg.m);
+
+      return msg;
+}); /**/ 
+
+/** cb.onTip(function (tip) {
+
+      tip.message= cuminFunc(tip.message);
+
+      return tip;
+}); /**/ 
+
+myMsgBox.value= myMsgObj.m;
+myPara.innerHTML= cuminFunc(myMsgBox.value);
+
+</script>
+<h3>Rationale:</h3>
+<p>
+
+CuminBot is a really stupid and futile attempt to correct a modern misspelling so widespread as to be in danger of becoming orthodox.  And this guy despises orthodoxy, so...
+
+<br/><br/>By way of (indirect) explanation, waaay back in 1993 a devotee of Bach's celebrated B minor mass was cautioned by his** ISP against using language "inappropriate to the Prodigy service."  Three decades later, this lonely script-jockey hopes Bach fans in rooms running CuminBot will be only momentarily perplexed by curious references to the non-existent movement "Come Sancto Spiritu."
+
+<br/><br/>[[ **I checked the sex of the user with the great Peter van der Linden of "butt-ugly fish book" fame - to whom I owe this too-short anecdote. ]]
+
+<br/><br/>Latin ain't my thing, but because no other English word begins with the first four letters of 'cummerbund' (it's a garment, folks) the initial spec for this bot was:-
+
+<br/><br/>On startup, call cb.onMessage() setting a handler that:
+<br/>--For all message words beginning with C followed by U followed by at least one M:
+<br/>----If there is more than one M, leave 'cummerbund' alone and otherwise replace the U and all the Ms with O and a single M
+<br/>----If there is exactly one M, leave entries in the CuminList alone but otherwise similarly flip the U to an O, and append an E if that M is also the last letter.
+
+<br/><br/>The latest spec doesn't actually exist except in my head, but it's close to the above.  Where it's different, it is what the code does - except when the code does something I don't want.  When that happens, the spec is what I think the code ought to do instead.  More or less.
+
+<br/><br/>The CuminList is named after the shortest word in it (it's a spice, folks).  Yes, I know you knew that.  The current CuminList is: cumber, cumbersome, cumbersomely, cumbersomeness, cumbrous, cumbrously, cumbrousness, cumin, cumquat, cumshaw, cumulate, cumulated, cumulates, cumulating, cumulative, cumulatively, cumuliform, cumulonimbus, cumulous, cumulus.
+
+<br/><br/>Note that a variant spelling of cumin, viz 'cummin', IS replaced (by 'comin').  This problematic case is beyond my power to adjudicate; introduction of a toggle-switch for it is scheduled for version two.  But don't hold your breath.  Similarly, certain other awkward, mostly past-tense cases will be better-handled, based on what little user-feedback I expect to receive.  And 'cumshaw'** is up for review, too.  With love, -Mark (aka 'IfILikeILick'; feedback/thanks/jokes/etc to &lt;cumin AT cpt-ra.bid&gt; please or (bigger please), tip me happy).
+
+<br/><br/>[[ **a loan word from Hokkien Chinese, apparently, and of which 'comshaw' is a variant spelling anyhow. ]]
+
+</p>
+</body></html>
