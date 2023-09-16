@@ -1,0 +1,1196 @@
+
+
+/// <reference lib="dom" />
+
+// ##include "products.h"
+
+//#
+
+//##define QPLIB /* always, apparently */
+
+//##ifndef SLAVA
+//##else
+//##undef SLAVA
+//##define SLAVA SLAVA
+//##endif
+
+//##ifndef QUMON
+//##else
+//##undef QUMON
+//##define QUMON QUMON
+//##endif
+
+//##ifndef CUMIN
+//##else
+//##undef CUMIN
+//##define CUMIN CUMIN
+//##endif
+
+//##ifndef QPLIB
+//##else
+//##undef QPLIB
+//##define QPLIB QPLIB
+//##endif
+
+//##ifndef MYHTM
+//##ifndef MYTCB
+//##else
+//##undef MYTCB
+//##define MYTCB MYTCB
+//##endif
+//##else
+//##undef MYHTM
+//##define MYHTM MYHTM
+//##undef MYTCB
+//##define MYTCB MYTCB
+//##define _NEED_HTML
+//##endif
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+//##ifndef _NEED_HTML
+//##else
+
+//#<!DOCTYPE html>
+//#<!-- Design (C) 2023 E M Drayton for Eleventh Intake Ltd UK SC505619 -->
+//#
+//#
+//#<!-- <https://www.w3schools.com/js/tryit.asp?filename=tryjs_myfirst> -->
+//#<!--
+//# *** TODOs:= ***
+//#DONE= cb.settings_choices MAJOR!
+//#commandline SPECced
+//#FIX= stupid 'Enter' key bug // Is it cos I'm editing the fckg field, perchance?
+//#-->
+//#
+//#
+//#<html><body>
+//#
+//#
+//#<h3>Last message was:</h3><p id= "myPara">
+//#
+//#If you are reading this because you ignored the next warning, then your browser is either slow, fckd, or not running JavaScript today.
+//#Appearences to the contrary, this is a TXT file, not an HTML file.  If it is renamed to HTML and opened in a browser, the behaviour is undefined.
+//#</p>
+//#
+//#<h3>Message test:</h3><p>
+//#
+//#Edit your message and press 'Enter' to update the result (above).</p>
+//#
+//#<input id="myMsgBox" value="(original message - this should have been overridden by JavaScript, but wasn't, apparently)">
+
+//##ifndef CUMIN
+//##else
+//#<button id="myMsgBut" onclick="document.getElementById('myPara').innerHTML = 'New message is: \42'+cuminFunc(myMsgBox.value)+'\42'">Send message</button>
+//##endif
+
+//##ifndef QUMON
+//##else
+//#<button id="myMsgBut" onclick="myMsgBox.value= '\42'+clickFunc(myMsgBox.value)+'\42'">Send message</button>
+//##endif
+
+//#
+//#
+//#<script>
+
+//##endif
+
+//#
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+//#
+
+//##ifndef MYHTM
+//##else
+
+//TODO= nulls? :=
+
+const myMsgBox=
+  document.getElementById("myMsgBox") as
+  HTMLInputElement; // HTMLTextAreaElement
+const myMsgBut=
+  document.getElementById("myMsgBut") as
+  HTMLButtonElement; // or superclass?
+const myPara=
+  document.getElementById("myPara") as
+  HTMLElement; // HTMLParagraphElement
+
+//##endif
+
+// declare function idM(it :any) :any;
+// declare function kU(it :any) :void;
+/*
+NB: preceding didn't work; dunno why except that it has something to do with overloading
+At any rate, TS's decl. func. is not like C's prototypes
+
+Poorly.JS #s :-
+
+;interface KS_Msg // string__ type as key index (OUT)
+function parseNumber /* :FnNum4Str /**//* (str :string) :number {
+var cachedArray; // TODO= FIX
+var cachedArgs; // TODO= RTFM
+TODO= LOSE= ;type nsn_t_= string | number | null; // LOSE= null
+TODO= function wrapper(array :Array<Number> // or what???
+myMsgBox.addEventListener("keypress", function(event) {
+function _constraint374 <T> ...
+
+NAMES my~ namespace
+NAMES cb_settings_choices + cb_settings
+LOSE?= idM + kU
+TRY= X-Spam?: boolean
+DONE= substr -> substring
+*/
+
+/**** CB's types, derived bottom up:=
+
+setting_int, setting_str, setting_choice
+choice(s) --- cb.settings_choices
+settings
+
+WAS:-
+choice(s) --- cb.settings_choices
+option(s) --- tipOptions()
+owner --- getRoomOwnerData()
+user --- (very widely used, see below)
+users --- getRoomUsersData()
+message --- onMessage()
+tip --- onTip()
+media --- onMediaPurchase()**
+template --- onDrawPanel()
+
+****/
+
+const cb_settings_q_notout= {
+  event_letters_to_notify_on: 'BDEFJLMPQSTU',
+  event_letters_to_debug_on: 'BDEFJLMPQSTU',
+};
+
+//##ifndef QXOUT
+//##else
+
+// OUT:= --- TODO= IN(?)
+const cb_settings_choices_q_out= [ // TODO= ADD= values(?)
+  { name: 'event_letters_to_notify_on', type: 'str', },
+  { name: 'event_letters_to_debug_on', type: 'str', },
+];
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+function idM_q_out(it :any) :(typeof it) { return it; }
+function kU_q_out(it :any) :void { void it; return; }
+/**/
+const cb_q_out= {
+  slug: "the_room_owner",
+  settings_choices: cb_settings_choices_q_out,
+  settings: cb_settings_q_notout,
+  onE: kU_q_out,
+  onL: kU_q_out,
+  onM: idM_q_out,
+}; /**/ // seed the cb object
+
+//##endif
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+//##ifndef QPLIB
+//##else
+
+/**/
+;interface KS_User {
+  room: string; // name of the room
+  user: string; // username
+  in_fanclub: boolean; // is the user in the broadcasters fan club
+  has_tokens: boolean; // does the user have at least 1 token
+  is_mod: boolean; // is the user a moderator
+  tipped_recently: boolean; // is the user a "dark blue"?
+  tipped_alot_recently: boolean; // is the user a "purple"?
+  tipped_tons_recently: boolean; // is the user a "dark purple"?
+  gender: string; // "m" (male), "f" (female), "s" (trans), or "c" (couple)
+} /**/
+
+
+/**/
+;interface KS_Media {
+  id: string; // unique ID of media set
+  type: string; // "photos" or "video"
+  name: string; // name of media set
+  tokens: number; // how many tokens paid
+} /**/
+
+/**/
+;interface KS_Msg {
+  c: string; // message color
+  m: string; // the message text
+  user: string; // username of message sender
+  f: string; // message font
+  in_fanclub: boolean; // is the user in the broadcasters fan club
+  has_tokens: boolean; // does the user have at least 1 token
+  is_mod: boolean; // is the user a moderator
+  tipped_recently: boolean; // is the user a "dark blue"?
+  tipped_alot_recently: boolean; // is the user a "purple"?
+  tipped_tons_recently: boolean; // is the user a "dark purple"?
+  gender: string; // "m" (male), "f" (female), "s" (trans), or "c" (couple)
+  'X-Spam'?: boolean; // DOING= TRYING
+}
+
+const eg_MsgO :KS_Msg= { c: "#666", m: "owner msg", user: "owner_user", f: "serif",
+  in_fanclub: false, has_tokens: true, is_mod: false,
+  tipped_recently: false, tipped_alot_recently: false, tipped_tons_recently: false,
+  gender: "f"
+};
+
+const eg_MsgG :KS_Msg= { c: "#666", m: "grey msg", user: "grey_user", f: "serif",
+  in_fanclub: false, has_tokens: false, is_mod: false,
+  tipped_recently: false, tipped_alot_recently: false, tipped_tons_recently: false,
+  gender: "m"
+};
+/**/
+
+/**/
+;interface KS_Tip {
+  amount: number; // amount of tip
+  message: string; // message in tip
+  is_anon_tip: boolean; // is this tip sent anonymously
+  to_user: string; // user who received tip
+  from_user: string; // user who sent tip
+  from_user_in_fanclub: boolean; // is the user in the broadcasters fan club
+  from_user_has_tokens: boolean; // does the user have at least 1 token
+  from_user_is_mod: boolean; // is the user a moderator
+  from_user_tipped_recently: boolean; // is the user a "dark blue"?
+  from_user_tipped_alot_recently: boolean; // is the user a "purple"?
+  from_user_tipped_tons_recently: boolean; // is the user a "dark purple"?
+  from_user_gender: string; // "m" (male), "f" (female), "s" (trans), or "c" (couple)
+}
+/**/
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+/***
+choice(s) --- cb.settings_choices
+option(s) --- tipOptions()
+owner --- getRoomOwnerData()
+user --- (very widely used, see below)
+users --- getRoomUsersData()
+message --- onMessage()
+tip --- onTip()
+media --- onMediaPurchase()
+template --- onDrawPanel()
+/**/
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+/***
+Objects [ user, media ]
+Developing on the Test Bed
+
+ *** CONSTANTS ***
+cb.settings_choices
+cb.room_slug
+
+ *** UTILITIES ***
+cb.log(message)
+cbjs.arrayContains(array, object)
+cbjs.arrayRemove(array, object)
+
+ *** ASYNCHRONOUS ***
+cb.getRoomOwnerData(func)
+cb.getRoomUsersData(func)
+
+ *** ROOM ACTIONS ***
+cb.cancelTimeout(id)
+cb.changeRoomSubject(new_subject)
+cb.drawPanel()
+cb.sendNotice(message, [to_user],
+  [background], [foreground], [weight],
+  [to_group])
+cb.setTimeout(func, msecs)
+cb.tipOptions(func)
+
+ *** OWNER EVENTS ***
+cb.onStart(func)
+cb.onBroadcastStart(func)
+cb.onBroadcastStop(func)
+
+ *** USER EVENTS I ***
+cb.onDrawPanel(func)
+cb.onEnter(func)
+cb.onMessage(func)
+cb.onLeave(func)
+cb.onTip(func)
+
+ *** USER EVENTS II ***
+cb.onFanclubJoin(func)
+cb.onFollow(func)
+cb.onMediaPurchase(func)
+cb.onUnFollow(func)
+
+ *** BROADCAST CONTROL I ***
+cb.limitCam_isRunning()
+cb.limitCam_start(message, [allowed_users])
+cb.limitCam_stop()
+
+ *** BROADCAST CONTROL II ***
+cb.limitCam_addUsers(allowed_users)
+cb.limitCam_allUsersWithAccess()
+cb.limitCam_removeAllUsers()
+cb.limitCam_removeUsers(removed_users)
+cb.limitCam_userHasAccess(user)
+/**/
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+// ## TODO= better(?)
+;interface cb_settings_choice_t_ {
+  name: string; type: string; defaultValue?: string | number;
+}
+
+;type cb_settings_choices_t_= cb_settings_choice_t_[];
+
+/* interface cb_setting_t_ {
+} /**/
+
+;type cb_settings_t_= object;
+
+;interface Layer_t_ { 'type' :string; // TODO= better (and others?)
+  'fileID' ?:string;
+  'text' ?:string;
+    'font-size' ?:number; 'color' ?:string;
+    'top' ?:number; 'left' ?:number;
+}
+
+;interface Panel_t_ { template :string; layers ?:Layer_t_[]; } // TODO= other templates
+
+//##endif
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+// ## TODO= Add cb to lib?
+//##ifndef MYTCB
+//##else
+
+;type FnMsg4Msg_= ((_1 :KS_Msg) => (typeof _1));
+;type FnMsg4Msg= (FnMsg4Msg_ | null);
+
+;type Function_M= FnMsg4Msg;
+;type Function_M__= FnMsg4Msg_;
+
+// function FnMsg4Msg_ :FnMsg4Msg;
+// function fnMsg4Msg_id :FnMsg4Msg (m :KS_Msg) { return m; }
+const fnMsg4Msg_id__ :FnMsg4Msg_= function  (m :KS_Msg) { return m; }
+const fnMsg4Msg_id_ :FnMsg4Msg= function (m :KS_Msg) { return m; }
+const fnMsg4Msg_id :FnMsg4Msg= fnMsg4Msg_id__;
+
+;type Fn4User_= ((_1 :KS_User) => void);
+;type Function_U= (Fn4User_ | null);
+;type Function_U__= Fn4User_; // TODO= LOSE --- Fucksake figure this shit out, huh?
+
+;type Fn4Tip_= ((_1 :KS_Tip) => void);
+;type Function_T= (Fn4Tip_ | null);
+;type Function_T__= Fn4Tip_;
+
+;type Fn4MediaP_= ((_1 :KS_User, _2 :KS_Media) => void);
+;type Function_MP= (Fn4MediaP_ | null);
+;type Function_MP__= Fn4MediaP_;
+
+;type FnPanel4User_= ((_1 :KS_User) => Panel_t_);
+;type Function_DP= (FnPanel4User_ | null);
+;type Function_DP__= FnPanel4User_; // TODO= LOSE --- Fucksake figure this shit out, huh?
+
+//function Function_U_ :Fn4User (user :KS_User) :void { void user; return; }
+const function_U_ :Function_U= function (user :KS_User) :void { void user; return; }
+const function_M_ :Function_M= function (msg :KS_Msg) :KS_Msg { return msg; }
+const function_T_ :Function_T= function (tip :KS_Tip) :void { void tip; return; }
+const function_MP_ :Function_MP=
+  function (user :KS_User, media :KS_Media) :void { void user; void media; return; }
+const function_DP_ :Function_DP=
+  function (user :KS_User) :Panel_t_ { void user;
+    let rv :Panel_t_= { template: 'image', }; return rv; }
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+//##ifndef MYHTM
+//##else
+
+const cb_log= function(str :string) {
+
+  myPara.innerHTML+= '<br/><br/>' + str;
+};
+
+const cb_sendNotice= function(msg :string, tou :string) { // TODO= alert(?)
+
+  myPara.innerHTML+= '<br/><br/>TO: ' + tou + '<br/>' + msg;
+};
+
+//##endif
+
+const cb_setTimeout= function(f, t) { return setTimeout(f, t); };
+const cb_cancelTimeout= function(i) { clearTimeout(i); };
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+const cb= {
+  settings_choices: undefined as (undefined | object), // TODO= better
+//  settings: cb_settings,
+//  settings: undefined as (undefined | object),
+  settings: cb_settings_q_notout,
+
+  log: cb_log, sendNotice: cb_sendNotice, room_slug: 'juliet',
+
+  onE: function_U_, onL: function_U_, onM: fnMsg4Msg_id_, onT: function_T_,
+  onS: function_U_, onB: function_U_, onQ: function_U_, onD: function_DP_,
+  onJ: function_U_, onF: function_U_, onP: function_MP_, onU: function_U_,
+
+  onEnter: function(f :Function_U__) :void { this.onE= f; },
+  onLeave: function(f :Function_U__) :void { this.onL= f; },
+  onMessage: function(f :Function_M__) { this.onM= f; },
+  onTip: function(f :Function_T__) { this.onT= f; },
+  onStart: function(f :Function_U__) { this.onS= f; },
+  onDrawPanel: function(f :Function_DP__) { this.onD= f; },
+  onBroadcastStart: function(f :Function_U__) { this.onB= f; },
+  onBroadcastStop: function(f :Function_U__) { this.onQ= f; },
+  onFanclubJoin: function(f :Function_U__) { this.onJ= f; },
+  onMediaPurchase: function(f :Function_MP__) { this.onP= f; },
+  onFollow: function(f :Function_U__) { this.onF= f; },
+  onUnFollow: function(f :Function_U__) { this.onU= f; },
+
+  setTimeout: cb_setTimeout, cancelTimeout: cb_cancelTimeout,
+  drawPanel: function () :void { ; }, // TODO= render(?)
+  onJudgementDay: undefined,
+};
+
+//##endif
+
+//
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+//
+
+/** JS to determine environment --- TODO= FIX, MOVE UP (but not yet)
+
+const log= console.log;
+//const look_for= { me: 'Good luck with that!', };
+function look_for(me) { return me; }
+
+const found_it= (function (obj, prop) {
+  let s= '';
+  for (x in obj) { s+= ' '+x; }
+  log(s);
+
+  return prop in obj;
+})(this, 'look_for');
+
+log('' + found_it);
+
+**/
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+//##ifndef SLAVA
+//##else
+
+const strDecimalLiteralRegex= /^\s*([+-]?(?:Infinity|(?:\d+\.\d*|\.\d+|\d+)(?:[eE][+-]?\d+)?))/;
+const strHexadecimalLiteralRegex= /^\s*([0-9a-fA-F]+)/;
+
+/**/ // OUT anyway:=
+;type FnNum4Str= ((_1 :string) => number); // TODO= USE
+function parseNumber /* :FnNum4Str /**/ (str :string) :number {
+    let decimalMatch= str.match(strDecimalLiteralRegex);
+    let hexadecimalMatch= str.match(strHexadecimalLiteralRegex);
+
+    if (decimalMatch && (!hexadecimalMatch || decimalMatch[0].length >= hexadecimalMatch[0].length)) {
+        return parseFloat(decimalMatch[1]);
+    } else if (hexadecimalMatch) {
+        return parseInt(hexadecimalMatch[1], 16);
+    } else {
+        return NaN;
+    }
+} /**/
+
+// console.log(parseNumber("1E1 111")); // 10
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+// Declare the cache variables outside the function so wrapper() - see below - can initialise them
+
+var cachedArray: number[];
+var cachedArgs :any[];
+
+// A recursive actor function that tokenises a string and populates an array with the matched tokens
+
+function actor(input :string, pattern :RegExp, parser :FnNum4Str) :string {
+      var uniChar;
+      var parsedNum= NaN; // not used anyway
+
+      let matchArray= input.match(pattern);
+      let override= 0;
+
+      if (matchArray) {
+          uniChar= 32;
+          parsedNum= parser(input);
+
+      } else {
+          var matchStr;
+
+          matchArray= input.match(/^\s*(\S)/);
+
+          if (matchArray) {
+              matchStr= matchArray[1];
+              uniChar= matchStr.charCodeAt(0);
+          } else return '';
+
+          while (true) {
+            override+= 3;
+            let cmdChars= cachedArgs[override-1];
+            if (cmdChars) if (cmdChars.indexOf(matchStr) < 0) continue; else;
+            else override= 0;
+
+            break;
+          }
+      }
+
+      let cmdStr= actor( // Make a recursive call with the unmatched portion of the input
+        input.slice(matchArray[0].length),
+        cachedArgs[override], cachedArgs[override+1]
+      );
+
+      cachedArray[uniChar]= uniChar !== 32? cachedArray[32]: parsedNum;
+
+      return cmdStr + String.fromCharCode(uniChar);
+}
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+//
+// Declare the validators array outside the function as a constant
+
+const validators = [
+      function (x :any) { return x instanceof RegExp; },
+      function (x :any) { return typeof x === "function"; },
+      function (x :any) { return typeof x === "string"; },
+];
+
+//
+// A non-recursive wrapper function that tokenises a string and populates an array with the matched tokens
+
+//;type nsn_t_= string | number | null; // DOING= LOSE
+;type ns_t_= string | number;
+
+function wrapper(array :number[], input :string, ...args :any[]) :ns_t_ {
+
+      // Cache the array and args in the reference variables
+
+      cachedArray= array;
+      cachedArgs= args;
+
+      // Validate the types of the first two arguments
+
+      if (Array.isArray(array) && typeof input === "string"){;}
+      else return ((new Error() ['lineNumber' as keyof Error]) || NaN);
+//      else return new Error().lineNumber;
+
+      if (args.length !== 0){;} else args[0]= /^\s*\d+/;
+      if (args.length !== 1){;} else args[1]= parseFloat;
+
+      // Validate the length and types of the rest arguments
+
+      if (args.length % 3 === 2
+        && args.every( function (arg, i) { return validators[i % 3](arg); } )){;}
+      else return ((new Error() ['lineNumber' as keyof Error]) || NaN); 
+//      else return new Error().lineNumber;
+
+      // Call the recursive actor function with the second, third and fourth arguments
+
+      return actor(input, args[0], args[1]);
+}
+
+//##endif
+
+//
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+//
+
+// TODO= MERGE
+
+// This file MAY contain HTML in future; for the time being not: just code.
+
+/** NEXT STEPS:-
+*** This is intrinsically a panel app; the room subject might well be better left out
+*** The panel spec is two lines: yellow text in the top half, and black text in the bottom half
+*** N <X ^Y #C // Y2 is (Y? Y: Y1)+35
+*** 
+**/
+
+// --- CODE:=
+
+//##ifndef SLAVA
+//##else
+
+/** Design (C) 2023 E M Drayton for Eleventh Intake Ltd UK (SC505619)
+*** JavaScript (C) 2023 CC-BY-SA
+**/
+// const bg3= '05b83220-1ccc-4871-9333-70f97488de00'; // TODO= design, upload
+const bg2= '69368584-fa48-48bc-b728-0780ae61853f'; // A Ukrainian flag, sort of
+// const bg1= '05b83220-1ccc-4871-9333-70f97488de00';
+
+const cbu_settings_choices= [
+  { name: 'room_subject_or_clear_to_disable',
+    type: 'str', defaultValue: "'s Room, supporting #ukraine against Putin.", },
+//  { name: 'event_letters_to_notify_on', type: 'str', defaultValue: 'BDEFJLMPQSTU' },
+//  { name: 'event_letters_to_debug_on', type: 'str', defaultValue: 'BDEFJLMPQSTU' },
+];
+
+var c16= 0;
+
+cb.onDrawPanel(function(user: KS_User) :Panel_t_ { // TODO= refine
+      return {
+        "template": "image_template",
+        "layers": [
+          { 'type': 'image', 'fileID': bg2 },
+          { 'type': 'text', 'font-size': 17, 'color': 'yellow',
+            'top': 7, 'left': 7, 'text': 'Welcome, @' + user.user + '!',
+          },
+          { 'type': 'text', 'font-size': 17, 'color': 'black',
+            'top': 42, 'left': 33+7, 'text': (c16%16? '': '    *** SLAVA UKRAINI ***'),
+          },
+        ], };
+} );
+
+var tid_u= NaN;
+const tout= 1875;
+var tsub= tout | tout<<1;
+
+function suf() {
+
+      if (c16){;}
+      else {
+        cb.sendNotice(
+'Slava Ukraini!  Thanks for trying this app, @'+ cb.room_slug+'.',
+cb.room_slug);
+//      if (cb.settings.room_subject_or_clear_to_disable === ''){;} // TODO= @
+//      else cb.changeRoomSubject(cb.room_slug + cb.settings.room_subject_or_clear_to_disable);
+      }
+
+      ++c16;  tsub>>= 1;
+      tid_u= cb.setTimeout(suf, tout-tsub);
+
+      if (c16 % 2){;}
+      else if (c16 % 4){;}
+      else cb.drawPanel();
+}
+
+function init(t1st :number) {
+
+      tid_u= cb.setTimeout(suf, t1st);
+      cb.drawPanel();
+}
+
+// TODO= parser
+// cb['settings_choices']= cbu_settings_choices;
+init(3333);
+
+//##endif
+
+//
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+//
+
+//##ifndef QUMON
+//##else
+
+// GLOBALS (and re HTML)
+
+//const myMsgBox = document.getElementById("myMsgBox");
+//const myPara = document.getElementById("myPara");
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+/* INSERT TYPES HERE */
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+//##ifndef MYHTM
+//##else
+
+// Execute a function when the user presses a key on the keyboard
+myMsgBox.addEventListener("keypress", function(event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    //document.getElementById("myMsgBut").click();
+    myMsgBut.click();
+  }
+}); /**/
+
+//##endif
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+/* my TEST objects */
+
+const myOwnerObj :KS_User= {
+  room: "juliet", // name of the room
+  user: "juliet", // username
+  in_fanclub: false, // is the user in the broadcasters fan club
+  has_tokens: true, // does the user have at least 1 token
+  is_mod: false, // is the user a moderator
+  tipped_recently: false, // is the user a "dark blue"?
+  tipped_alot_recently: false, // is the user a "purple"?
+  tipped_tons_recently: false, // is the user a "dark purple"?
+  gender: "f", // "m" (male), "f" (female), "s" (trans), or "c" (couple)
+}; /**/
+
+const myUserObj :KS_User= {
+  room: "juliet", // name of the room (NB: lowercase)
+  user: "romeo", // username (NB: capitalcase atm!?!?!)
+  in_fanclub: false, // is the user in the broadcasters fan club
+  has_tokens: true, // does the user have at least 1 token
+  is_mod: false, // is the user a moderator
+  tipped_recently: false, // is the user a "dark blue"?
+  tipped_alot_recently: false, // is the user a "purple"?
+  tipped_tons_recently: false, // is the user a "dark purple"?
+  gender: "m", // "m" (male), "f" (female), "s" (trans), or "c" (couple)
+}; /**/
+
+const myTipObj :KS_Tip= {
+  amount: 1, // amount of tip
+  message: "I love you!", // message in tip
+  is_anon_tip: false, // is this tip sent anonymously
+  to_user: "juliet", // user who received tip
+  from_user: "romeo", // user who sent tip
+  from_user_in_fanclub: false, // is the user in the broadcasters fan club
+  from_user_has_tokens: false, // does the user have at least 1 token NOW (?)
+  from_user_is_mod: false, // is the user a moderator
+  from_user_tipped_recently: true, // is the user a "dark blue"?
+  from_user_tipped_alot_recently: false, // is the user a "purple"?
+  from_user_tipped_tons_recently: false, // is the user a "dark purple"?
+  from_user_gender: "m", // "m" (male), "f" (female), "s" (trans), or "c" (couple)
+}; /**/
+
+const myMsgObj :KS_Msg= {
+  c: "#666", // message color
+  m: "Where art thou?",
+  user: "juliet", // username of message sender
+  f: "serif", // message font
+  in_fanclub: false, // is the user in the broadcasters fan club
+  has_tokens: true, // does the user have at least 1 token
+  is_mod: false, // is the user a moderator
+  tipped_recently: false, // is the user a "dark blue"?
+  tipped_alot_recently: false, // is the user a "purple"?
+  tipped_tons_recently: false, // is the user a "dark purple"?
+  gender: "m", // "m" (male), "f" (female), "s" (trans), or "c" (couple)
+//  'X-Spam': undefined,
+}; /**/
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+const obj2str4log__= JSON.stringify; // or Object.values()
+const obj2str4log_= function(it: object) :string { return it.toString(); } // or Object.values(), or JSON.stringify()
+var obj2str4log= obj2str4log_;
+var obj2str= Object.values; // or JSON.stringify(), or simply obj2str4log here
+
+cb.onEnter(function (user :KS_User) :void {
+
+      if (cb.settings.event_letters_to_debug_on.indexOf('E') < 0){;}
+      else { cb.log('onEnter():'); cb.log(obj2str4log(user)); }
+
+      if (cb.settings.event_letters_to_notify_on.indexOf('E') < 0){;}
+      else cb.sendNotice('Enter: ' + obj2str(user), cb.room_slug);
+}); /**/
+
+cb.onTip(function (tip :KS_Tip) {
+
+      if (cb.settings.event_letters_to_debug_on.indexOf('T') < 0){;}
+      else { cb.log('onTip():'); cb.log(obj2str4log(tip)); }
+
+      if (cb.settings.event_letters_to_notify_on.indexOf('T') < 0){;}
+      else cb.sendNotice('Tip: ' + obj2str(tip), cb.room_slug);
+
+      return tip;
+}); /**/
+
+cb.onMessage(function (msg: KS_Msg) :(typeof msg) {
+
+      if (cb.settings.event_letters_to_debug_on.indexOf('M') < 0){;}
+      else { cb.log('onMsg():'); cb.log(obj2str4log(msg)); }
+
+      if (cb.settings.event_letters_to_notify_on.indexOf('M') < 0){;}
+      else cb.sendNotice('Msg: ' + obj2str(msg), cb.room_slug);
+
+      if (msg.m.indexOf('@KrappsLogBot ') !== 0){;} else {
+        msg['X-Spam']= true;
+        if (msg.user === cb.room_slug){;} // TODO?= commands
+        else cb.sendNotice('No commands please, ' + msg.user + '! ("' + msg.m + '")', msg.user);
+      }
+
+      return msg;
+}); /**/
+
+cb.onLeave(function (user :KS_User) :void {
+
+      if (cb.settings.event_letters_to_debug_on.indexOf('L') < 0){;}
+      else { cb.log('onLeave():'); cb.log(obj2str4log(user)); }
+
+      if (cb.settings.event_letters_to_notify_on.indexOf('L') < 0){;}
+      else cb.sendNotice('Leave: ' + obj2str(user), cb.room_slug);
+}); /**/
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+cb.onStart(function (user :KS_User) :void {
+
+      if (cb.settings.event_letters_to_debug_on.indexOf('S') < 0){;}
+      else { cb.log('onStart():'); cb.log(obj2str4log(user)); }
+
+      if (cb.settings.event_letters_to_notify_on.indexOf('S') < 0){;}
+      else cb.sendNotice('AppStart: ' + obj2str(user), cb.room_slug);
+}); /**/
+
+cb.onBroadcastStart(function (user :KS_User) :void {
+
+      if (cb.settings.event_letters_to_debug_on.indexOf('B') < 0){;}
+      else { cb.log('onBroadcastStart():'); cb.log(obj2str4log(user)); }
+
+      if (cb.settings.event_letters_to_notify_on.indexOf('B') < 0){;}
+      else cb.sendNotice('CamStart: ' + obj2str(user), cb.room_slug);
+}); /**/
+
+cb.onBroadcastStop(function (user :KS_User) :void {
+
+      if (cb.settings.event_letters_to_debug_on.indexOf('Q') < 0){;}
+      else { cb.log('onBroadcastStop():'); cb.log(obj2str4log(user)); }
+
+      if (cb.settings.event_letters_to_notify_on.indexOf('Q') < 0){;}
+      else cb.sendNotice('CamStop: ' + obj2str(user), cb.room_slug);
+}); /**/
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+cb.onFanclubJoin(function (user :KS_User) :void {
+
+      if (cb.settings.event_letters_to_debug_on.indexOf('J') < 0){;}
+      else { cb.log('onFanclubJoin():'); cb.log(obj2str4log(user)); }
+
+      if (cb.settings.event_letters_to_notify_on.indexOf('J') < 0){;}
+      else cb.sendNotice('Join: ' + obj2str(user), cb.room_slug);
+}); /**/
+
+cb.onFollow(function (user :KS_User) :void { // TODO= Throttle(?)
+
+      if (cb.settings.event_letters_to_debug_on.indexOf('F') < 0){;}
+      else { cb.log('onFollow():'); cb.log(obj2str4log(user)); }
+
+      if (cb.settings.event_letters_to_notify_on.indexOf('F') < 0){;}
+      else cb.sendNotice('Follow: ' + obj2str(user), cb.room_slug);
+}); /**/
+
+cb.onMediaPurchase(function (user :KS_User, media :KS_Media) :void {
+
+      if (cb.settings.event_letters_to_debug_on.indexOf('P') < 0){;}
+      else { cb.log('onMediaPurchase():'); cb.log(obj2str4log(user)); cb.log(obj2str4log(media)); }
+
+      if (cb.settings.event_letters_to_notify_on.indexOf('P') < 0){;}
+      else cb.sendNotice('Media: ' + obj2str(media) + ' by ' + obj2str(user), cb.room_slug);
+}); /**/
+
+cb.onUnFollow(function (user :KS_User) :void { // TODO= Throttle(?)
+
+      if (cb.settings.event_letters_to_debug_on.indexOf('U') < 0){;}
+      else { cb.log('onUnFollow():'); cb.log(obj2str4log(user)); }
+
+      if (cb.settings.event_letters_to_notify_on.indexOf('U') < 0){;}
+      else cb.sendNotice('UnFollow: ' + obj2str(user), cb.room_slug);
+}); /**/
+
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+
+const a2z= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const b2u= 'BDEFJLMPQSTU';
+
+const cbq_settings_choices :cb_settings_choices_t_= [
+  { name: 'event_letters_to_notify_on', type: 'str', defaultValue: b2u },
+  { name: 'event_letters_to_debug_on', type: 'str', defaultValue: b2u },
+];
+
+//cb['settings_choices' as keyof typeof cb]= cbq_settings_choices;
+cb['settings_choices']= cbq_settings_choices;
+
+//##ifndef MYTCB
+//##else
+
+const cbq_settings /*:cb_settings_t_/**/= {
+  event_letters_to_notify_on: a2z,
+  event_letters_to_debug_on: a2z,
+};
+
+cb['settings']= cbq_settings;
+
+//##endif
+
+// obj2str4log= JSON.stringify; // Probably pointless on CB
+
+var tid_l_unused= cb.setTimeout(function() {
+      cb.sendNotice(obj2str4log(cb.settings as object), cb.room_slug);
+}, 3000);
+
+//##ifndef MYHTM
+//##else
+
+var state= 0;
+const clickFunc= function(str :string) { // TODO= get logged vals
+/***/
+      switch (state) {
+        case 1: cb.onE(myUserObj); break;
+        case 2: cb.onT(myTipObj); break;
+        case 3: cb.onM(myMsgObj); break;
+        case 4: cb.onL(myUserObj); break;
+      }
+/**/
+      ++state;
+
+      return str;
+};
+
+myMsgBox.value= myMsgObj.m;
+myPara.innerHTML= clickFunc(myMsgBox.value);
+
+//##endif
+
+obj2str4log= JSON.stringify; // Probably pointless on CB
+// obj2str= Object.values; // Guard for pre 2016 browsers?  eg Ffx 46- (!)
+
+//##endif
+
+//
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+//
+
+//##ifndef CUMIN
+//##else
+
+//##ifndef MYHTM
+//##else
+
+//const myMsgBox = document.getElementById("myMsgBox");
+//const myPara = document.getElementById("myPara");
+
+// Execute a function when the user presses a key on the keyboard
+myMsgBox.addEventListener("keypress", function(event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+//    document.getElementById("myMsgBut")?.click();
+    myMsgBut.click();
+  }
+});
+
+/**
+const cb= {
+  onMessage: undefined,
+  onTip: undefined,
+  onJudgementDay: undefined
+}; /**/
+
+const mycMsgObj :KS_Msg= {
+  c: "#666", // message color
+  m: "MESSAGE reads: \x22CUMIN cummerbund; Cum Sancto Spiritu\x22",
+  user: "USER", // username of message sender
+  f: "Verdana", // message font
+  in_fanclub: false, // is the user in the broadcasters fan club
+  has_tokens: true, // does the user have at least 1 token
+  is_mod: false, // is the user a moderator
+  tipped_recently: false, // is the user a "dark blue"?
+  tipped_alot_recently: false, // is the user a "purple"?
+  tipped_tons_recently: false, // is the user a "dark purple"?
+  gender: "m", // "m" (male), "f" (female), "s" (trans), or "c" (couple)
+}; /**/
+
+const mycTipObj :KS_Tip= {
+  amount: 1, // amount of tip
+  message: "I love you!", // message in tip
+  is_anon_tip: false, // is this tip sent anonymously
+  to_user: "juliet", // user who received tip
+  from_user: "romeo", // user who sent tip
+  from_user_in_fanclub: false, // is the user in the broadcasters fan club
+  from_user_has_tokens: true, // does the user have at least 1 token
+  from_user_is_mod: false, // is the user a moderator
+  from_user_tipped_recently: false, // is the user a "dark blue"?
+  from_user_tipped_alot_recently: false, // is the user a "purple"?
+  from_user_tipped_tons_recently: false, // is the user a "dark purple"?
+  from_user_gender: "m", // "m" (male), "f" (female), "s" (trans), or "c" (couple)
+}; /**/
+
+//##endif
+
+const cuminChar= function(s :string, x :number) {
+  return String.fromCharCode(s.charCodeAt(0)+x);
+};
+
+const cuminFunc= function(s :string) {
+  let q= "";
+
+  do { // TODO= (\b|\W)
+      const m= s.match(/\b(c)(u)(m)(m*)(\w*)/i);
+
+      if (m){;} else break;
+
+      const i= s.indexOf(m[0]),
+            j= i+(m[0].length);
+
+      const l= m[4].length?
+        " erbund ":
+        " ber bersome bersomely bersomeness brous brously "
+        + "brousness in quat shaw ulate ulated ulates ulating "
+        + "ulative ulatively uliform ulonimbus ulous ulus ";
+
+      let x= "";
+      if (l.indexOf(" " + m[5].toLowerCase() + " ")>=0){;} else {
+
+        const k= m[5].toLowerCase()!=="ed"? 6: 20,
+              t= cuminChar(m[2], 0-k),
+              e= m[5].length!=0 && k!=20?
+                m[5]:
+                cuminChar(m[2], 0-16);
+        x= t + m[3] + e;
+      }
+      q= q + s.substring(0, i+m[x.length? 1: 0].length) + x;
+      s= s.substring(j);
+
+  } while (true);
+
+  return q+s;
+};
+
+/**/
+cb.onMessage(function (msg :KS_Msg) {
+
+      msg.m= cuminFunc(msg.m);
+
+      return msg;
+}); /**/ 
+
+/**/
+cb.onTip(function (tip :KS_Tip) {
+
+      tip.message= cuminFunc(tip.message);
+
+      return tip;
+}); /**/ 
+
+//##ifndef MYHTM
+//##else
+
+myMsgBox.value= mycMsgObj.m;
+myPara.innerHTML= cuminFunc(myMsgBox.value);
+
+//##endif
+
+//##endif
+
+//#
+ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/ /*\ \*/
+//#
+
+//##ifndef _NEED_HTML
+//##else
+
+//#</script>
+//#
+//#
+
+//##ifndef QUMON
+//##else
+
+//#<h3>Rationale:</h3><p>
+//#
+//#<!-- KrappsLogIn -->
+//#
+//#KrappsLogBot** is a Chaturbate bot (to API v1) intended for monitoring (and debugging) other apps and bots.  The level of log detail (see below) is owner-initialized at startup (ie from cb.settings_choices)<!-- and is adjustable by chat-command (see below) by both the owner and - albeit to a lesser extent - any and all owner-appointed moderators -->.
+//#
+//#<!--
+//#KrappsLaxApp** is a Chaturbate app (to API v1) intended for monitoring and debugging bots.  Although not really intended for production use, some sensible default capabilities are incorporated given that the Room Subject and the (270x69 pixel) Panel cannot be bot-controlled at all in API v1: the former is text-initialized at startup (ie from cb.settings_choices) and is modifiable by chat-command (see below); the latter is generated on-the-fly, also under chat-command control.
+//#-->
+//#
+//#<br/><br/>[[ **Each KrappScript name is a (word) play on a (stage) play by the Irish Nobel laureate Samuel Beckett (1906-1989). ]]
+//#
+//#<br/><br/>Each of the twelve API v1 events has been assigned a single UPPERCASE letter, derived from the corresponding API v1 function names; in alphabetical order, these are:-
+//#<i>
+//#<br/>B = onBroadcastStart --- the owner began broadcasting
+//#<br/>D = onDrawPanel --- (for app to devise a 270x69 panel)
+//#<br/>E = onEnter --- a user entered the room
+//#<br/>F = onFollow --- a user followed the owner
+//#<br/>J = onFanclubJoin --- a user paid to join the owner's fan club
+//#<br/>L = onLeave --- a user left the room
+//#<br/>M = onMessage --- a user messaged without tipping
+//#<br/>P = onMediaPurchase --- a user paid for a pic/vid/link/whatever
+//#<br/>Q = onBroadcastStop --- the owner quit broadcasting
+//#<br/>S = onStart --- the owner started a bot (or app)
+//#<br/>T = onTip --- a user tipped (usually messaging, too)
+//#<br/>U = onUnFollow --- a user stopped following the owner
+//#</i>
+//#
+//#<!--
+//#<br/><br/>NB: no API v1 events exist for the owner closing the room or stopping a bot; the latter is arguably a curious omission, given that starting a bot DOES generate an 'S'/onStart() event.
+//#-->
+//#
+//#<br/><br/>Events can be logged, or notified, or both.  Logged events are only seen if the room owner types '/debug' into the chat; notifications are always seen.  By default all eleven of the twelve bot-reportable events are both logged and notified (NB: bots cannot observe DrawPanel events); this is controlled by removing the appropriate letter from the two letter-sequence(s) on start-up, thereby suppressing reporting.
+//#
+//#<br/><br/>TYPES in KrappScript
+//#<br/>KrappScript is the TypeScript/ECMAscript(aka JavaScript, JS) dialect used in the Cumin/Kumin/Q-Min projects (all of which names are pronounced identically, btw: like "queue-mint" without the 'T').  KrappScript (KS) is just JS with a few types and a very small library.  The types (viz: choice(s), option(s), owner, user, users, message, tip, media, template) are all from API v1; they are used as follows:-
+//#<i>
+//#<br/>choice(s) --- cb.settings_choices
+//#<br/>option(s) --- tipOptions()
+//#<br/>owner --- getRoomOwnerData()
+//#<br/>user --- (very widely used, see below)
+//#<br/>users --- getRoomUsersData()
+//#<br/>message --- onMessage()
+//#<br/>tip --- onTip()
+//#<br/>media --- onMediaPurchase()**
+//#<br/>template --- onDrawPanel()
+//#</i>
+//#
+//#<br/><br/>[[ **NB: onMediaPurchase() differs from onMessage() and onTip() in that user data is (largely) subsumed into the message and tip datatypes, but a (user, media) object pair are passed to onMediaPurchase(). ]]
+//#
+//#<br/><br/>
+//#
+//#</p>
+
+//##endif
+
+//#
+
+//##ifndef CUMIN
+//##else
+
+//#<h3>Rationale:</h3><p>
+//#
+//#CuminBot is a really stupid and futile attempt to correct a modern misspelling so widespread as to be in danger of becoming orthodox.  And this guy despises orthodoxy, so...
+//#
+//#<br/><br/>By way of (indirect) explanation, waaay back in 1993 a devotee of Bach's celebrated B minor mass was cautioned by his** ISP against using language "inappropriate to the Prodigy service."  Three decades later, this lonely script-jockey hopes Bach fans in rooms running CuminBot will be only momentarily perplexed by curious references to the non-existent movement "Come Sancto Spiritu."
+//#
+//#<br/><br/>[[ **I checked the sex of the user with the great Peter van der Linden of "butt-ugly fish book" fame - to whom I owe this too-short anecdote. ]]
+//#
+//#<br/><br/>Latin ain't my thing, but because no other English word begins with the first four letters of 'cummerbund' (it's a garment, folks) the initial spec for this bot was:-
+//#
+//#<br/><br/>On startup, call cb.onMessage() setting a handler that:
+//#<br/>--For all message words beginning with C followed by U followed by at least one M:
+//#<br/>----If there is more than one M, leave 'cummerbund' alone and otherwise replace the U and all the Ms with O and a single M
+//#<br/>----If there is exactly one M, leave entries in the CuminList alone but otherwise similarly flip the U to an O, and append an E if that M is also the last letter.
+//#
+//#<br/><br/>The latest spec doesn't actually exist except in my head, but it's close to the above.  Where it's different, it is what the code does - except when the code does something I don't want.  When that happens, the spec is what I think the code ought to do instead.  More or less.
+//#
+//#<br/><br/>The CuminList is named after the shortest word in it (it's a spice, folks).  Yes, I know you knew that.  The current CuminList is: cumber, cumbersome, cumbersomely, cumbersomeness, cumbrous, cumbrously, cumbrousness, cumin, cumquat, cumshaw, cumulate, cumulated, cumulates, cumulating, cumulative, cumulatively, cumuliform, cumulonimbus, cumulous, cumulus.
+//#
+//#<br/><br/>Note that a variant spelling of cumin, viz 'cummin', IS replaced (by 'comin').  This problematic case is beyond my power to adjudicate; introduction of a toggle-switch for it is scheduled for version two.  But don't hold your breath.  Similarly, certain other awkward, mostly past-tense cases will be better-handled, based on what little user-feedback I expect to receive.  And 'cumshaw'** is up for review, too.  With love, -Mark (aka 'IfILikeILick'; feedback/thanks/jokes/etc to &lt;cumin AT cpt-ra.bid&gt; please or (bigger please), tip me happy).
+//#
+//#<br/><br/>[[ **a loan word from Hokkien Chinese, apparently, and of which 'comshaw' is a variant spelling anyhow. ]]
+//#
+//#</p>
+//##endif
+
+//#
+//#
+//#</body></html>
+
+//##endif
